@@ -1,5 +1,4 @@
-#set(KIMAGEANNOTATOR_SRCS
-#	${CMAKE_CURRENT_SOURCE_DIR}/gui/KImageAnnotator.cpp
-#	)
 
-#set(KIMAGEANNOTATOR_SRCS ${KIMAGEANNOTATOR_SRCS} PARENT_SCOPE)
+add_library(plugin-ocr SHARED PluginOcr.cpp)
+target_link_libraries(plugin-ocr PRIVATE Qt5::Widgets)
+target_compile_options(plugin-ocr PRIVATE ${COMPILE_OPTIONS})

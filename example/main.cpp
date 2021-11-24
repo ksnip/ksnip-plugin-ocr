@@ -19,6 +19,11 @@
 
 #include <QApplication>
 #include <QMainWindow>
+#include <QPluginLoader>
+#include <QDebug>
+#include <QDir>
+
+#include "IPluginOcrOther.h"
 
 int main(int argc, char **argv)
 {
@@ -26,6 +31,24 @@ int main(int argc, char **argv)
 
 	QMainWindow mainWindow;
 	mainWindow.show();
+
+	qDebug() << "Checking for plugins";
+	QDir pluginsDir(QLatin1String("../src/"));
+	const QStringList entries = pluginsDir.entryList(QDir::Files);
+	for (const QString &fileName : entries) {
+		QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
+		auto plugin = pluginLoader.instance();
+		if (plugin) {
+			auto pluginOcr = qobject_cast<IPluginOcrOther*>(plugin);
+			if (pluginOcr) {
+				pluginOcr->doSomething();
+			} else {
+				qDebug() << "Unable to cast to interface";
+			}
+			pluginLoader.unload();
+		} 
+	}
+	qDebug() << "Finished checking for plugins";
 
 	return app.exec();
 }

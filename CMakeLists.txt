@@ -23,7 +23,7 @@ include(FeatureSummary)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-#add_subdirectory(src)
+add_subdirectory(src)
 
 if (BUILD_EXAMPLE)
 	add_subdirectory(example)
