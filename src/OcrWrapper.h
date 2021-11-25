@@ -17,15 +17,28 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "PluginOcr.h"
+#ifndef PLUGIN_OCR_OCRWRAPPER_H
+#define PLUGIN_OCR_OCRWRAPPER_H
 
-#include <QDebug>
+#include <QPixmap>
+#include <QBuffer>
+#include <QImage>
 
-QString PluginOcr::recognize(const QPixmap &pixmap) const
+#include <tesseract/baseapi.h>
+#include <leptonica/allheaders.h>
+#include <leptonica/bmp.h>
+
+class OcrWrapper
 {
-	qDebug() << "Plugin was called, yay!";
+public:
+	OcrWrapper() = default;
+	~OcrWrapper() = default;
 
-	OcrWrapper ocrWrapper;
+	QString recognize(const QPixmap &pixmap);
 
-	return ocrWrapper.recognize(pixmap);
-}
+private:
+	PIX* makePIXFromQImage(const QImage &image);
+};
+
+
+#endif //PLUGIN_OCR_OCRWRAPPER_H

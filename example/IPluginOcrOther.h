@@ -26,7 +26,7 @@ class IPluginOcrOther
 {
 public:
 	virtual ~IPluginOcrOther() = default;
-	virtual void doSomething() const = 0;
+	virtual QString recognize(const QPixmap &pixmap) const = 0;
 };
 
 #define IPluginOcrOther_iid "org.ksnip.plugin.ocr"

@@ -22,6 +22,7 @@
 #include <QPluginLoader>
 #include <QDebug>
 #include <QDir>
+#include <QPainter>
 
 #include "IPluginOcrOther.h"
 
@@ -41,7 +42,17 @@ int main(int argc, char **argv)
 		if (plugin) {
 			auto pluginOcr = qobject_cast<IPluginOcrOther*>(plugin);
 			if (pluginOcr) {
-				pluginOcr->doSomething();
+
+				QPixmap pix(500, 500);
+				pix.fill(Qt::white);
+				QPainter painter(&pix);
+				painter.setFont( QFont("Times", 50) );
+				painter.drawText( QPoint(200, 200), "Hello" );
+
+				pix.save("/home/dporobic/test.png");
+
+				auto text = pluginOcr->recognize(pix);
+				qDebug() << "Result: " << qPrintable(text);
 			} else {
 				qDebug() << "Unable to cast to interface";
 			}

@@ -26,7 +26,7 @@ class IPluginOcr
 {
 public:
 	virtual ~IPluginOcr() = default;
-	virtual void doSomething() const = 0;
+	virtual QString recognize(const QPixmap &pixmap) const = 0;
 };
 
 #define IPluginOcr_iid "org.ksnip.plugin.ocr"

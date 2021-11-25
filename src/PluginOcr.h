@@ -24,6 +24,7 @@
 #include <QtPlugin>
 
 #include "IPluginOcr.h"
+#include "OcrWrapper.h"
 
 class PluginOcr : public QObject, public IPluginOcr
 {
@@ -33,7 +34,7 @@ Q_OBJECT
 
 public:
 	~PluginOcr() override = default;
-	void doSomething() const override;
+	QString recognize(const QPixmap &pixmap) const override;
 };
 
 #endif //PLUGIN_OCR_PLUGINOCR_H
