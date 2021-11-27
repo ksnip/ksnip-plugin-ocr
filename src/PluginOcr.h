@@ -35,6 +35,9 @@ Q_OBJECT
 public:
 	~PluginOcr() override = default;
 	QString recognize(const QPixmap &pixmap) const override;
+
+private:
+	OcrWrapper mOcrWrapper;
 };
 
 #endif //PLUGIN_OCR_PLUGINOCR_H

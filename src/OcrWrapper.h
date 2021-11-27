@@ -22,22 +22,24 @@
 
 #include <QPixmap>
 #include <QBuffer>
-#include <QImage>
 
 #include <tesseract/baseapi.h>
 #include <leptonica/allheaders.h>
-#include <leptonica/bmp.h>
+
+using tesseract::TessBaseAPI;
 
 class OcrWrapper
 {
 public:
-	OcrWrapper() = default;
-	~OcrWrapper() = default;
+	OcrWrapper();
+	~OcrWrapper();
 
-	QString recognize(const QPixmap &pixmap);
+	QString recognize(const QPixmap &pixmap) const;
 
 private:
-	PIX* makePIXFromQImage(const QImage &image);
+	QSharedPointer<TessBaseAPI> mTessApi;
+
+	static PIX* makePixFromPixmap(const QPixmap &pixmap) ;
 };
 
 

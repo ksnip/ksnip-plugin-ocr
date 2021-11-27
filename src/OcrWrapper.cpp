@@ -21,70 +21,40 @@
 
 #include <QDebug>
 
-QString OcrWrapper::recognize(const QPixmap &pixmap)
+OcrWrapper::OcrWrapper() :
+	mTessApi(QSharedPointer<TessBaseAPI>(new TessBaseAPI()))
 {
-	qDebug() << "recognize";
-
-	char *outText;
-
-	auto api = new tesseract::TessBaseAPI();
-
-	// Initialize tesseract-ocr with English, without specifying tessdata path
-	if (api->Init(NULL, "eng"))
-	{
-		fprintf(stderr, "Could not initialize tesseract.\n");
-		exit(1);
-	}
-
-	qDebug() << "tes init";
-
-//	// Open input image with leptonica library
-	Pix *imagePix = makePIXFromQImage(pixmap.toImage());
-	api->SetImage(imagePix);
-
-//	auto name = "/home/dporobic/tes-temp.png";
-//	pixmap.save(name);
-
-	// Open input image with leptonica library
-//	Pix *imagePix = pixRead(name);
-//	api->SetImage(imagePix);
-
-	qDebug() << "create pix";
-
-	// Get OCR result
-	outText = api->GetUTF8Text();
-
-	// Destroy used object and release memory
-	api->End();
-	pixDestroy(&imagePix);
-
-	qDebug() << "finished";
-
-	return QString::fromLatin1(outText);
 }
 
-PIX* OcrWrapper::makePIXFromQImage(const QImage &image)
+OcrWrapper::~OcrWrapper()
 {
-	PIX * pixs;
-	l_uint32 *lines;
+	mTessApi->End();
+}
 
-	auto image2 = image.rgbSwapped();
-	int width = image2.width();
-	int height = image2.height();
-	int depth = image2.depth();
-	int wpl = image2.bytesPerLine() / 4;
+QString OcrWrapper::recognize(const QPixmap &pixmap) const
+{
+	if (mTessApi->Init(nullptr, "eng") == 0)
+	{
+		auto pix = makePixFromPixmap(pixmap);
+		mTessApi->SetImage(pix);
 
-	pixs = pixCreate(width, height, depth);
-	pixSetWpl(pixs, wpl);
-	pixSetColormap(pixs, NULL);
-	l_uint32 *datas = pixs->data;
+		auto recognizedText = mTessApi->GetUTF8Text();
 
-	for (int y = 0; y < height; y++) {
-		lines = datas + y * wpl;
-		QByteArray a((const char*)image2.scanLine(y), image2.bytesPerLine());
-		for (int j = 0; j < a.size(); j++) {
-			*((l_uint8 *)lines + j) = a[j];
-		}
+		pixDestroy(&pix);
+
+		return QString::fromLatin1(recognizedText);
+
+	} else {
+		qCritical("Failed to initialize Tesseract");
+		return {};
 	}
-	return pixEndianByteSwapNew(pixs);
+}
+
+PIX* OcrWrapper::makePixFromPixmap(const QPixmap &pixmap)
+{
+	QByteArray byteArray;
+	QBuffer buffer(&byteArray);
+	buffer.open(QIODevice::WriteOnly);
+	pixmap.save(&buffer, "BMP");
+	return pixReadMemBmp((l_uint8 *)byteArray.constData(), byteArray.size());
 }

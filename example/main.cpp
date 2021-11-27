@@ -23,6 +23,9 @@
 #include <QDebug>
 #include <QDir>
 #include <QPainter>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QSizePolicy>
 
 #include "IPluginOcrOther.h"
 
@@ -31,9 +34,34 @@ int main(int argc, char **argv)
 	QApplication app(argc, argv);
 
 	QMainWindow mainWindow;
-	mainWindow.show();
 
-	qDebug() << "Checking for plugins";
+	auto centralWidget = new QWidget(&mainWindow);
+	auto imageLabel = new QLabel(&mainWindow);
+	auto textLabel = new QLabel(&mainWindow);
+	auto layout = new QVBoxLayout(centralWidget);
+
+	mainWindow.setCentralWidget(centralWidget);
+
+	layout->addWidget(imageLabel);
+	layout->addWidget(textLabel);
+
+	centralWidget->setFixedWidth(510);
+	centralWidget->setFixedHeight(600);
+
+	QPixmap pixmap(500, 500);
+	pixmap.fill(Qt::gray);
+	QPainter painter(&pixmap);
+	painter.setFont( QFont("Times", 30) );
+	painter.drawText( QPoint(50, 150), "Hello, this is a simple," );
+	painter.drawText( QPoint(50, 190), "Test" );
+	painter.drawText( QPoint(50, 230), "and some additional text..." );
+
+	imageLabel->setPixmap(pixmap);
+	imageLabel->setFixedWidth(500);
+	imageLabel->setFixedHeight(500);
+
+	textLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
+
 	QDir pluginsDir(QLatin1String("../src/"));
 	const QStringList entries = pluginsDir.entryList(QDir::Files);
 	for (const QString &fileName : entries) {
@@ -42,24 +70,16 @@ int main(int argc, char **argv)
 		if (plugin) {
 			auto pluginOcr = qobject_cast<IPluginOcrOther*>(plugin);
 			if (pluginOcr) {
-
-				QPixmap pix(500, 500);
-				pix.fill(Qt::white);
-				QPainter painter(&pix);
-				painter.setFont( QFont("Times", 50) );
-				painter.drawText( QPoint(200, 200), "Hello" );
-
-				pix.save("/home/dporobic/test.png");
-
-				auto text = pluginOcr->recognize(pix);
-				qDebug() << "Result: " << qPrintable(text);
+				auto text = pluginOcr->recognize(pixmap);
+				textLabel->setText(text);
 			} else {
-				qDebug() << "Unable to cast to interface";
+				qCritical() << "Unable to cast to interface";
 			}
 			pluginLoader.unload();
 		} 
 	}
-	qDebug() << "Finished checking for plugins";
+
+	mainWindow.show();
 
 	return app.exec();
 }

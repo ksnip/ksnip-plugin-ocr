@@ -19,13 +19,7 @@
 
 #include "PluginOcr.h"
 
-#include <QDebug>
-
 QString PluginOcr::recognize(const QPixmap &pixmap) const
 {
-	qDebug() << "Plugin was called, yay!";
-
-	OcrWrapper ocrWrapper;
-
-	return ocrWrapper.recognize(pixmap);
+	return mOcrWrapper.recognize(pixmap);
 }
