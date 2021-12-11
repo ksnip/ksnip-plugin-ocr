@@ -8,6 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
@@ -15,6 +16,8 @@ option(BUILD_TESTS "Build Unit Tests" OFF)
 option(BUILD_EXAMPLE "Build Example Application" ON)
 
 include(GNUInstallDirs)
+
+configure_file(src/BuildConfig.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/BuildConfig.h)
 
 set(QT_MIN_VERSION 5.9.4)
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Widgets)

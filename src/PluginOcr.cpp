@@ -23,3 +23,8 @@ QString PluginOcr::recognize(const QPixmap &pixmap) const
 {
 	return mOcrWrapper.recognize(pixmap);
 }
+
+QString PluginOcr::version() const
+{
+	return QLatin1String(PROJECT_VERSION);
+}

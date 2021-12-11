@@ -26,6 +26,8 @@
 #include "IPluginOcr.h"
 #include "OcrWrapper.h"
 
+#include "BuildConfig.h"
+
 class PluginOcr : public QObject, public IPluginOcr
 {
 Q_OBJECT
@@ -35,6 +37,7 @@ Q_OBJECT
 public:
 	~PluginOcr() override = default;
 	QString recognize(const QPixmap &pixmap) const override;
+	QString version() const override;
 
 private:
 	OcrWrapper mOcrWrapper;

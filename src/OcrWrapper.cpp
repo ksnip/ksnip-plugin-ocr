@@ -33,7 +33,7 @@ OcrWrapper::~OcrWrapper()
 
 QString OcrWrapper::recognize(const QPixmap &pixmap) const
 {
-	if (mTessApi->Init(nullptr, "eng") == 0)
+	if (mTessApi->Init(nullptr, nullptr) == 0)
 	{
 		auto pix = makePixFromPixmap(pixmap);
 		mTessApi->SetImage(pix);
@@ -56,5 +56,6 @@ PIX* OcrWrapper::makePixFromPixmap(const QPixmap &pixmap)
 	QBuffer buffer(&byteArray);
 	buffer.open(QIODevice::WriteOnly);
 	pixmap.save(&buffer, "BMP");
+
 	return pixReadMemBmp((l_uint8 *)byteArray.constData(), byteArray.size());
 }

@@ -70,6 +70,7 @@ int main(int argc, char **argv)
 		if (plugin) {
 			auto pluginOcr = qobject_cast<IPluginOcrOther*>(plugin);
 			if (pluginOcr) {
+				qDebug() << "Loaded plugin " << fileName << " with version " << pluginOcr->version();
 				auto text = pluginOcr->recognize(pixmap);
 				textLabel->setText(text);
 			} else {

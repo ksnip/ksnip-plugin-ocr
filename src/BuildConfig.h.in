@@ -1,0 +1,8 @@
+#ifndef PLUGINOCR_BUILDCONFIG_H
+#define PLUGINOCR_BUILDCONFIG_H
+
+// Variables passed from CMAKE
+
+#define PROJECT_VERSION "@PROJECT_VERSION@"
+
+#endif
