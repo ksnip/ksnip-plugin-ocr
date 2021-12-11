@@ -1,0 +1,30 @@
+name: linux
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: '5.15.2'
+          host: 'linux'
+          install-deps: 'true'
+
+      - name: Install dependencies
+        run: sudo apt-get install tesseract-ocr libtesseract-dev
+
+      - name: Build
+        run: |
+          mkdir build
+          cd build
+          cmake .. && make
