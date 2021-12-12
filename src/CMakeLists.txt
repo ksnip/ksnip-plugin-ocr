@@ -4,12 +4,12 @@ set(KSNIP_PLUGIN_OCR_SRCS
         )
 
 
-add_library(plugin-ocr SHARED ${KSNIP_PLUGIN_OCR_SRCS})
-target_link_libraries(plugin-ocr PRIVATE Qt5::Widgets tesseract)
-target_compile_options(plugin-ocr PRIVATE ${COMPILE_OPTIONS})
+add_library(ksnip-plugin-ocr SHARED ${KSNIP_PLUGIN_OCR_SRCS})
+target_link_libraries(ksnip-plugin-ocr PRIVATE Qt5::Widgets tesseract)
+target_compile_options(ksnip-plugin-ocr PRIVATE ${COMPILE_OPTIONS})
 
 if (UNIX AND NOT APPLE)
-    install(TARGETS plugin-ocr)
+    install(TARGETS ksnip-plugin-ocr)
 else ()
     message("DEBUG: NOT UNIX")
 endif ()
