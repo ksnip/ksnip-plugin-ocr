@@ -13,4 +13,4 @@ cat changelog >> ksnip-plugin-ocr.spec
 
 echo "--> Update version"
 sed -i "s/Version: X.X.X/Version: ${VERSION_NUMBER}/" ksnip-plugin-ocr.spec
-sed -i "s;cmake .;cmake . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_PREFIX_PATH=${INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=${BUILD_TYPE};" ksnip-plugin-ocr.spec # ; is the delimiter
+sed -i "s;cmake .;cmake . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_PREFIX_PATH=${INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DBUILD_TESTS=${BUILD_TESTS} -DBUILD_EXAMPLE=${BUILD_EXAMPLE};" ksnip-plugin-ocr.spec # ; is the delimiter
