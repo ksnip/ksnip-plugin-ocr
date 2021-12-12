@@ -63,3 +63,38 @@ jobs:
         run: |
           wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
           bash upload.sh ksnip-plugin-ocr*.rpm
+
+  package-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up build variables
+        run: bash ./.github/scripts/setup_build_variables.sh
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: '5.12.7'
+          host: 'linux'
+          install-deps: 'true'
+
+      - name: Install dependencies
+        run: sudo apt-get install cmake tesseract-ocr libtesseract-dev devscripts debhelper
+
+      - name: Set up directory structure
+        run: bash ./.github/scripts/linux/deb/setup_deb_directory_structure.sh
+
+      - name: Set up changelog
+        run: bash ./.github/scripts/linux/deb/setup_changelog_file.sh
+
+      - name: Package deb
+        run: bash ./.github/scripts/linux/deb/build_deb.sh
+
+      - name: Upload files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+          bash upload.sh ksnip-plugin-ocr-*.deb
