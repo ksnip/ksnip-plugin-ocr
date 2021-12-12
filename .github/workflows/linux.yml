@@ -28,3 +28,38 @@ jobs:
           mkdir build
           cd build
           cmake .. && make
+
+  package-rpm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up build variables
+        run: bash ./.github/scripts/setup_build_variables.sh
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: '5.15.2'
+          host: 'linux'
+          install-deps: 'true'
+
+      - name: Install dependencies
+        run: sudo apt-get install tesseract-ocr libtesseract-dev
+
+      - name: Set up spec file
+        run: bash ./.github/scripts/linux/rpm/setup_spec_file.sh
+
+      - name: Set up directory structure
+        run: bash ./.github/scripts/linux/rpm/setup_rpm_directory_structure.sh
+
+      - name: Package rpm
+        run: bash ./.github/scripts/linux/rpm/build_rpm.sh
+
+      - name: Upload files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+          bash upload.sh ksnip-plugin-ocr*.rpm
