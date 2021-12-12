@@ -35,6 +35,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/lib%{name}*
+%{_usr}/lib/x86_64-linux-gnu/lib%{name}*
 
 %changelog
