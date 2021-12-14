@@ -27,6 +27,13 @@ jobs:
       - name: Set up nmake
         uses: ilammy/msvc-dev-cmd@v1
 
+      - name: Set up SW
+        run: |
+          curl -L "https://software-network.org/client/sw-master-windows-client.zip" --output sw.zip
+          7z x sw.zip -o"sw"
+          cd sw
+          sw setup
+
       - name: Set up tessarect
         run: |
           git clone https://github.com/tesseract-ocr/tesseract.git
