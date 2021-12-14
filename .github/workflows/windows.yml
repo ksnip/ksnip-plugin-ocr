@@ -29,7 +29,7 @@ jobs:
 
       - name: Set up tessarect
         run: |
-          git https://github.com/tesseract-ocr/tesseract.git
+          git clone https://github.com/tesseract-ocr/tesseract.git
           cd tesseract
           mkdir build
           cd build && cmake .. -G"NMake Makefiles" && nmake
