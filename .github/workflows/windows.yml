@@ -1,0 +1,43 @@
+name: windows
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up build variables
+        run: bash ./.github/scripts/setup_build_variables.sh
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: '5.15.2'
+          host: 'windows'
+          install-deps: 'true'
+          arch: 'win64_msvc2019_64'
+
+      - name: Set up nmake
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Set up tessarect
+        run: |
+          git https://github.com/tesseract-ocr/tesseract.git
+          cd tesseract
+          mkdir build
+          cd build && cmake .. -G"NMake Makefiles" && nmake
+          nmake install
+
+      - name: Build
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G"NMake Makefiles"
+          nmake
