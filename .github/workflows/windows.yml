@@ -29,7 +29,8 @@ jobs:
 
       - name: Set up tessarect
         run: |
-          vcpkg install tesseract:x64-windows-static
+           vcpkg help
+#          vcpkg install tesseract:x64-windows-static
 
       - name: Build
         run: |
