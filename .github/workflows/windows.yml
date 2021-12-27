@@ -35,9 +35,6 @@ jobs:
           ./sw.exe setup
 
       - name: Set up tessarect
-        with:
-          name: PATH
-          value: $env:PATH;$env:WORKSPACE/sw
         run: |
           git clone https://github.com/tesseract-ocr/tesseract.git
           cd tesseract
