@@ -27,14 +27,27 @@ jobs:
       - name: Set up nmake
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Set up tessarect
+      - name: Set up SW
         run: |
-           vcpkg install help
-#          vcpkg install tesseract:x64-windows-static
+          curl -L "https://software-network.org/client/sw-master-windows-client.zip" --output sw.zip
+          7z x sw.zip -o"sw"
+          cd sw
+          ./sw.exe setup
+
+      - name: Set up tessarect
+        with:
+          name: PATH
+          value: $env:PATH;$env:WORKSPACE/sw
+        run: |
+          git clone https://github.com/tesseract-ocr/tesseract.git
+          cd tesseract
+          mkdir build
+          cd build && cmake .. -G"NMake Makefiles" && nmake
+          nmake install
 
       - name: Build
         run: |
           mkdir build
           cd build
-          cmake .. -G"NMake Makefiles"
+          cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="C:\dev\projects\vcpkg\installed\x64-windows\include\tesseract"
           nmake
