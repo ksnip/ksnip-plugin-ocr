@@ -49,5 +49,5 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="C:\dev\projects\vcpkg\installed\x64-windows\include\tesseract"
+          cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="C:/Program Files (x86)/tesseract/include"
           nmake
