@@ -16,6 +16,8 @@ echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
 echo "UPLOADTOOL_ISPRERELEASE=true" >> $GITHUB_ENV
 echo "BUILD_TESTS=OFF" >> $GITHUB_ENV
 echo "BUILD_EXAMPLE=OFF" >> $GITHUB_ENV
+echo "LIB=$LIB:/c/Program Files (x86)/tesseract/lib" >> $GITHUB_ENV
+echo "INCLUDE=$INCLUDE:/c/Program Files (x86)/tesseract/include" >> $GITHUB_ENV
 
 
 if [[ "$GITHUB_REF" = refs/tags* ]]; then
