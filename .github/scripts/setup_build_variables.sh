@@ -16,7 +16,6 @@ echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
 echo "UPLOADTOOL_ISPRERELEASE=true" >> $GITHUB_ENV
 echo "BUILD_TESTS=OFF" >> $GITHUB_ENV
 echo "BUILD_EXAMPLE=OFF" >> $GITHUB_ENV
-echo "PATH=$PATH:/d/a/ksnip-plugin-ocr/ksnip-plugin-ocr/sw" >> $GITHUB_ENV
 
 
 if [[ "$GITHUB_REF" = refs/tags* ]]; then

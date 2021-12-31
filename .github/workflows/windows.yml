@@ -34,6 +34,9 @@ jobs:
           cd sw
           ./sw.exe setup
 
+      - name: Set up SW path
+        run: echo "D:\a\ksnip-plugin-ocr\ksnip-plugin-ocr\sw" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
       - name: Set up tessarect
         run: |
           git clone https://github.com/tesseract-ocr/tesseract.git
