@@ -49,5 +49,6 @@ jobs:
         run: |
           mkdir build
           cd build
+          find / -name leptonica
           cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="C:/Program Files (x86)/tesseract/include"
           nmake
