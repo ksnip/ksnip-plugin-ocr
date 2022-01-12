@@ -49,6 +49,6 @@ jobs:
         run: |
           mkdir build
           cd build
-          where /r c:\ leptonica
+          Get-Childitem -Path C:\ -Include *leptonica* -Recurse -ErrorAction SilentlyContinue
           cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="C:/Program Files (x86)/tesseract/include"
           nmake
