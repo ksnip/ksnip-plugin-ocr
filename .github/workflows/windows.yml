@@ -42,7 +42,7 @@ jobs:
           git clone https://github.com/DanBloomberg/leptonica.git
           cd leptonica
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" && nmake
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" && nmake
           nmake install
 
       - name: Set up tessarect
@@ -50,12 +50,12 @@ jobs:
           git clone https://github.com/tesseract-ocr/tesseract.git
           cd tesseract
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" && nmake
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" && nmake
           nmake install
 
       - name: Build
         run: |
           mkdir build
           cd build
-          cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="C:/Program Files (x86)/tesseract/include;C:/Program Files (x86)/leptonica/include/"
+          cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="$env:INSTALL_PREFIX"
           nmake
