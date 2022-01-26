@@ -16,8 +16,8 @@ echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
 echo "UPLOADTOOL_ISPRERELEASE=true" >> $GITHUB_ENV
 echo "BUILD_TESTS=OFF" >> $GITHUB_ENV
 echo "BUILD_EXAMPLE=OFF" >> $GITHUB_ENV
-echo "LIB=$LIB;C:\Program Files (x86)\tesseract\lib;C:/Program Files (x86)/leptonica/lib" >> $GITHUB_ENV
-echo "INCLUDE=$INCLUDE;C:\Program Files (x86)\tesseract\include;C:/Program Files (x86)/leptonica/include" >> $GITHUB_ENV
+echo "LIB=$LIB;$INSTALL_PREFIX/lib" >> $GITHUB_ENV
+echo "INCLUDE=$INCLUDE;$INSTALL_PREFIX/include" >> $GITHUB_ENV
 
 
 if [[ "$GITHUB_REF" = refs/tags* ]]; then
