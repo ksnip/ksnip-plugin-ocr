@@ -42,7 +42,7 @@ jobs:
           git clone https://github.com/DanBloomberg/leptonica.git
           cd leptonica
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON 
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_PROG=OFF -DSW_BUILD=OFF
           nmake
           nmake install
 
@@ -51,7 +51,7 @@ jobs:
           git clone https://github.com/tesseract-ocr/tesseract.git
           cd tesseract
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TRAINING_TOOLS=OFF -DSW_BUILD=OFF -DOPENMP_BUILD=OFF
           nmake
           nmake install
 
