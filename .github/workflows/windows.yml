@@ -37,21 +37,30 @@ jobs:
       - name: Set up SW path
         run: echo "D:\a\ksnip-plugin-ocr\ksnip-plugin-ocr\sw" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-      - name: Set up leptonica
+#      - name: Build and install libtiff
+#        run: |
+#          git clone --depth 1 https://gitlab.com/libtiff/libtiff
+#          cd libtiff
+#          mkdir build
+#          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release
+#          nmake
+#          nmake install
+
+      - name: Build and install leptonica
         run: |
-          git clone https://github.com/DanBloomberg/leptonica.git
+          git clone --depth 1 https://github.com/DanBloomberg/leptonica.git
           cd leptonica
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_PROG=OFF -DSW_BUILD=OFF
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_PROG=OFF
           nmake
           nmake install
 
-      - name: Set up tessarect
+      - name: Build and install tessarect
         run: |
-          git clone https://github.com/tesseract-ocr/tesseract.git
+          git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
           cd tesseract
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TRAINING_TOOLS=OFF -DSW_BUILD=OFF -DOPENMP_BUILD=OFF
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TRAINING_TOOLS=OFF -DOPENMP_BUILD=OFF
           nmake
           nmake install
 
