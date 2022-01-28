@@ -5,7 +5,7 @@ set(KSNIP_PLUGIN_OCR_SRCS
 
 
 add_library(ksnip-plugin-ocr SHARED ${KSNIP_PLUGIN_OCR_SRCS})
-target_link_libraries(ksnip-plugin-ocr PRIVATE Qt5::Widgets tesseract)
+target_link_libraries(ksnip-plugin-ocr PRIVATE Qt5::Widgets libtesseract)
 target_compile_options(ksnip-plugin-ocr PRIVATE ${COMPILE_OPTIONS})
 
 if (UNIX AND NOT APPLE)
