@@ -39,7 +39,7 @@ jobs:
 
       - name: Build and install leptonica
         run: |
-          git clone --depth 1 https://github.com/DanBloomberg/leptonica.git
+          git clone --depth 1 --branch "1.74.4" https://github.com/DanBloomberg/leptonica.git
           cd leptonica
           mkdir build
           cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_PROG=OFF
