@@ -54,6 +54,7 @@ jobs:
           cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TRAINING_TOOLS=OFF -DOPENMP_BUILD=OFF
           nmake
           nmake install
+          ln -s $env:INSTALL_PREFIX/lib/tesseract50.lib $env:INSTALL_PREFIX/lib/tesseract.lib
 
       - name: Build
         run: |
