@@ -45,6 +45,7 @@ jobs:
           cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_PROG=OFF
           nmake
           nmake install
+          ln -s $env:INSTALL_PREFIX/lib/leptonica*.lib $env:INSTALL_PREFIX/lib/leptonica.lib
 
       - name: Build and install tessarect
         run: |
