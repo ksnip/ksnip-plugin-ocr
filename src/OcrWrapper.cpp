@@ -19,8 +19,6 @@
 
 #include "OcrWrapper.h"
 
-#include <QDebug>
-
 OcrWrapper::OcrWrapper() :
 	mTessApi(QSharedPointer<TessBaseAPI>(new TessBaseAPI()))
 {
