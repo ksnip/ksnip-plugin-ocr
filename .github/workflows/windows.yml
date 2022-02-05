@@ -146,3 +146,17 @@ jobs:
           cd build
           cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release
           nmake
+
+      - name: Package
+        run: |
+          mkdir packageDir
+          cp build/src/ksnip-plugin-ocr.dll packageDir/ksnip-plugin-ocr.dll
+          cp $env:INSTALL_PREFIX/lib/* packageDir/
+          7z a ksnip-plugin-ocr-${VERSION}-windows.zip ./packageDir/*
+
+      - name: Upload files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -L https://github.com/probonopd/uploadtool/raw/master/upload.sh --output upload.sh
+          bash upload.sh ksnip-plugin-ocr-*.zip
