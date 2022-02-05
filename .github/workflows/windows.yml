@@ -97,7 +97,7 @@ jobs:
       - name: Build and install jbigkit
         run: |
           git clone --depth 1 https://github.com/zdenop/jbigkit
-          cd jbigkit-2.1
+          cd jbigkit
           mkdir build
           cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release
           nmake
