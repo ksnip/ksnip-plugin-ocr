@@ -106,7 +106,8 @@ jobs:
       - name: Build and install zstd
         run: |
           git clone --depth 1 https://github.com/facebook/zstd.git
-          cd zstd
+          cd zstd/build/cmake
+          mkdir build
           cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release
           nmake
           nmake install
