@@ -27,16 +27,6 @@ jobs:
       - name: Set up nmake
         uses: ilammy/msvc-dev-cmd@v1
 
-#      - name: Set up SW
-#        run: |
-#          curl -L "https://software-network.org/client/sw-master-windows-client.zip" --output sw.zip
-#          7z x sw.zip -o"sw"
-#          cd sw
-#          ./sw.exe setup
-#
-#      - name: Set up SW path
-#        run: echo "D:\a\ksnip-plugin-ocr\ksnip-plugin-ocr\sw" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-
       - name: Build and install zlib
         run: |
           curl -sSL -o zlib1211.zip https://zlib.net/zlib1211.zip
@@ -147,12 +137,17 @@ jobs:
           cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release
           nmake
 
+      - name: Build
+        run: |
+          curl -L https://github.com/tesseract-ocr/tessdata/blob/main/eng.traineddata --output eng.traineddata
+
       - name: Package
         run: |
-          mkdir packageDir
+          mkdir packageDir/tessdata
           cp build/src/ksnip-plugin-ocr.dll packageDir/ksnip-plugin-ocr.dll
-          cp $env:INSTALL_PREFIX/lib/* packageDir/
-          7z a ksnip-plugin-ocr-${VERSION}-windows.zip ./packageDir/*
+          cp $env:INSTALL_PREFIX/bin/*.dll packageDir/
+          cp eng.traineddata packageDir/tessdata
+          7z a ksnip-plugin-ocr-$env:VERSION-windows.zip ./packageDir/*
 
       - name: Upload files
         env:
