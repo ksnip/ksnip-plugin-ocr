@@ -63,11 +63,24 @@ int main(int argc, char **argv)
 	textLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
 	QDir pluginsDir(QLatin1String("../src/"));
+
+#if  defined(_WIN32)
+	// Under Windows the 3rd Party Dlls are next to the plugin in the same directory
+	// in order to find them we set the current directory to the plugin directory
+	QDir::setCurrent(pluginsDir.path());
+#endif
+
 	const QStringList entries = pluginsDir.entryList(QDir::Files);
 	for (const QString &fileName : entries) {
 		QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
 		auto plugin = pluginLoader.instance();
-		if (plugin) {
+		if (plugin == nullptr) {
+			if (!pluginLoader.metaData().isEmpty()) {
+				qDebug() << "Error loading plugin" << fileName << pluginLoader.errorString();
+			} else {
+				qDebug() << "Checked" << fileName << "and it's not a plugin.";
+			}
+		}  else {
 			auto pluginOcr = qobject_cast<IPluginOcrOther*>(plugin);
 			if (pluginOcr) {
 				qDebug() << "Loaded plugin " << fileName << " with version " << pluginOcr->version();
@@ -77,7 +90,7 @@ int main(int argc, char **argv)
 				qCritical() << "Unable to cast to interface";
 			}
 			pluginLoader.unload();
-		} 
+		}
 	}
 
 	mainWindow.show();
