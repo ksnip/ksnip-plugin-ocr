@@ -116,7 +116,6 @@ jobs:
         run: |
           git clone --depth 1 https://gitlab.com/libtiff/libtiff
           cd libtiff
-          mkdir build
           cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE=Release
           nmake
           nmake install
