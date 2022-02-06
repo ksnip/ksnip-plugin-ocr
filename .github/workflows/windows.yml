@@ -33,7 +33,7 @@ jobs:
           unzip.exe zlib1211.zip
           cd zlib-1.2.11
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -43,7 +43,7 @@ jobs:
           unzip.exe lpng1637.zip
           cd lpng1637
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -52,7 +52,7 @@ jobs:
           git clone --depth 1 https://github.com/webmproject/libwebp.git
           cd libwebp
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -62,7 +62,7 @@ jobs:
           unzip giflib-master.zip
           cd giflib-master
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -71,7 +71,7 @@ jobs:
           git clone --depth 1 https://github.com/libjpeg-turbo/libjpeg-turbo.git
           cd libjpeg-turbo
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -80,7 +80,7 @@ jobs:
           git clone --depth 1 https://github.com/uclouvain/openjpeg.git
           cd openjpeg
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -89,7 +89,7 @@ jobs:
           git clone --depth 1 https://github.com/zdenop/jbigkit
           cd jbigkit
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -98,7 +98,7 @@ jobs:
           git clone --depth 1 https://github.com/facebook/zstd.git
           cd zstd/build/cmake
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -106,7 +106,7 @@ jobs:
         run: |
           git clone --depth 1 https://gitlab.com/libtiff/libtiff
           cd libtiff
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
           nmake install
 
@@ -115,7 +115,7 @@ jobs:
           git clone --depth 1 https://github.com/DanBloomberg/leptonica.git
           cd leptonica
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE -DBUILD_SHARED_LIBS=ON -DBUILD_PROG=OFF -DSW_BUILD=OFF
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE" -DBUILD_SHARED_LIBS=ON -DBUILD_PROG=OFF -DSW_BUILD=OFF
           nmake
           nmake install
           ln -s $env:INSTALL_PREFIX/lib/leptonica*.lib $env:INSTALL_PREFIX/lib/leptonica.lib
@@ -125,7 +125,7 @@ jobs:
           git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
           cd tesseract
           mkdir build
-          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE -DBUILD_SHARED_LIBS=ON -DBUILD_TRAINING_TOOLS=OFF -DOPENMP_BUILD=OFF -DSW_BUILD=OFF
+          cd build && cmake .. -G"NMake Makefiles" -DCMAKE_INSTALL_PREFIX="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE" -DBUILD_SHARED_LIBS=ON -DBUILD_TRAINING_TOOLS=OFF -DOPENMP_BUILD=OFF -DSW_BUILD=OFF
           nmake
           nmake install
           ln -s $env:INSTALL_PREFIX/lib/tesseract*.lib $env:INSTALL_PREFIX/lib/tesseract.lib
@@ -134,7 +134,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH=$env:INSTALL_PREFIX -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+          cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
 
       - name: Build

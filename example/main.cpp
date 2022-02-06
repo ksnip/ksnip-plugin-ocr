@@ -20,12 +20,10 @@
 #include <QApplication>
 #include <QMainWindow>
 #include <QPluginLoader>
-#include <QDebug>
 #include <QDir>
 #include <QPainter>
 #include <QLabel>
 #include <QVBoxLayout>
-#include <QSizePolicy>
 
 #include "IPluginOcrOther.h"
 
