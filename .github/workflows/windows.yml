@@ -144,7 +144,7 @@ jobs:
       - name: Package
         run: |
           mkdir packageDir/tessdata
-          cp build/src/ksnip-plugin-ocr.dll packageDir/ksnip-plugin-ocr.dll
+          cp build/src/ksnip-plugin-ocr.* packageDir/
           cp $env:INSTALL_PREFIX/bin/*.dll packageDir/
           cp eng.traineddata packageDir/tessdata
           7z a ksnip-plugin-ocr-$env:VERSION-windows.zip ./packageDir/*
