@@ -137,9 +137,9 @@ jobs:
           cmake .. -G"NMake Makefiles" -DCMAKE_PREFIX_PATH="$env:INSTALL_PREFIX" -DCMAKE_BUILD_TYPE="$env:BUILD_TYPE"
           nmake
 
-      - name: Build
+      - name: Download Trained Data
         run: |
-          curl -L https://github.com/tesseract-ocr/tessdata/blob/main/eng.traineddata --output eng.traineddata
+          curl -L https://github.com/tesseract-ocr/tessdata/raw/main/eng.traineddata --output eng.traineddata
 
       - name: Package
         run: |
