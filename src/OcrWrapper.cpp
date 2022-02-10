@@ -31,16 +31,16 @@ OcrWrapper::~OcrWrapper()
 
 QString OcrWrapper::recognize(const QPixmap &pixmap) const
 {
-	if (mTessApi->Init(nullptr, "eng") == 0)
+	if (mTessApi->Init(getDataPath(), "eng") == 0)
 	{
 		auto pix = makePixFromPixmap(pixmap);
 		mTessApi->SetImage(pix);
 
-		auto recognizedText = mTessApi->GetUTF8Text();
+		auto recognizedText = QSharedPointer<char>(mTessApi->GetUTF8Text());
 
 		pixDestroy(&pix);
 
-		return QString::fromLatin1(recognizedText);
+		return QString::fromLatin1(recognizedText.data());
 
 	} else {
 		qCritical("Failed to initialize Tesseract");
@@ -56,4 +56,17 @@ PIX* OcrWrapper::makePixFromPixmap(const QPixmap &pixmap)
 	pixmap.save(&buffer, "BMP");
 
 	return pixReadMemBmp((l_uint8 *)byteArray.constData(), byteArray.size());
+}
+
+const char *OcrWrapper::getDataPath()
+{
+#if defined(_WIN32)
+	// Under Windows we expect the trained data to be next to the plugin
+	// in as directory called tessdata
+	return ".\\tessdata\\";
+#else
+	// Under Linux/Unix/MacOS we expect the TESSDATA_PREFIX to point to the
+	// trained data.
+	return nullptr;
+#endif
 }

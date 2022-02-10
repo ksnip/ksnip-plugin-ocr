@@ -40,6 +40,7 @@ private:
 	QSharedPointer<TessBaseAPI> mTessApi;
 
 	static PIX* makePixFromPixmap(const QPixmap &pixmap);
+	static const char *getDataPath();
 };
 
 #endif //PLUGIN_OCR_OCRWRAPPER_H
