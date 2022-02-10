@@ -35,12 +35,14 @@ public:
 	~OcrWrapper();
 
 	QString recognize(const QPixmap &pixmap) const;
+	QString recognize(const QPixmap &pixmap, const QString &dataPath) const;
 
 private:
 	QSharedPointer<TessBaseAPI> mTessApi;
 
+	QString recognizeInner(const QPixmap &pixmap, char * dataPath) const;
+
 	static PIX* makePixFromPixmap(const QPixmap &pixmap);
-	static const char *getDataPath();
 };
 
 #endif //PLUGIN_OCR_OCRWRAPPER_H

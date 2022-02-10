@@ -37,6 +37,7 @@ Q_OBJECT
 public:
 	~PluginOcr() override = default;
 	QString recognize(const QPixmap &pixmap) const override;
+	QString recognize(const QPixmap &pixmap, const QString &dataPath) const override;
 	QString version() const override;
 
 private:

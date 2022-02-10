@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 
 	textLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
-	QDir pluginsDir(QLatin1String("../src/"));
+	QDir pluginsDir(QLatin1String("../src"));
 
 #if  defined(_WIN32)
 	// Under Windows the 3rd Party Dlls are next to the plugin in the same directory
@@ -82,7 +82,12 @@ int main(int argc, char **argv)
 			auto pluginOcr = qobject_cast<IPluginOcrOther*>(plugin);
 			if (pluginOcr) {
 				qDebug() << "Loaded plugin " << fileName << " with version " << pluginOcr->version();
+
+#if  defined(_WIN32)
+				auto text = pluginOcr->recognize(pixmap, pluginsDir.path() + QString("\\tessdata"));
+#else
 				auto text = pluginOcr->recognize(pixmap);
+#endif
 				textLabel->setText(text);
 			} else {
 				qCritical() << "Unable to cast to interface";
