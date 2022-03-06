@@ -10,7 +10,7 @@ jobs:
   package-zip:
     strategy:
       matrix:
-        build-type: [ debug, release ]
+        build_type: [ debug, release ]
     runs-on: windows-latest
     steps:
       - name: Checkout
