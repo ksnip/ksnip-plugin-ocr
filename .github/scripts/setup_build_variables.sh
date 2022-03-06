@@ -34,11 +34,11 @@ if [[ -z "${GITHUB_TAG}" ]]; then
     echo "Build is not tagged this is a continuous build"
     VERSION_SUFFIX="continuous"
     echo "VERSION_SUFFIX=$VERSION_SUFFIX" >> $GITHUB_ENV
-    echo "VERSION=${VERSION_NUMBER}-${$BUILD_TYPE}-${VERSION_SUFFIX}" >> $GITHUB_ENV
+    echo "VERSION=${VERSION_NUMBER}-${BUILD_TYPE}-${VERSION_SUFFIX}" >> $GITHUB_ENV
 else
     echo "Build is tagged this is not a continues build"
     echo "Building ksnip-plugin-ocr version ${VERSION_NUMBER}"
-    echo "VERSION=${VERSION_NUMBER}-${$BUILD_TYPE}" >> $GITHUB_ENV
+    echo "VERSION=${VERSION_NUMBER}-${BUILD_TYPE}" >> $GITHUB_ENV
 fi
 
 
