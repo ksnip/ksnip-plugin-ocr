@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_type: [ debug, release ]
+        build-type: [ debug, release ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
