@@ -11,12 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_type: [ debug, release ]
+        build-type: [ debug, release ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Set up build variables
+        env:
+          BUILD_TYPE: ${{ matrix.build-type }}
         run: bash ./.github/scripts/setup_build_variables.sh
 
       - name: Install Qt
@@ -55,6 +57,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up build variables
+        env:
+          BUILD_TYPE: ${{ matrix.build-type }}
         run: bash ./.github/scripts/setup_build_variables.sh
 
       - name: Install Qt

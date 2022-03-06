@@ -6,7 +6,6 @@ BUILD_DATE=$(date  +"%a %b %d %Y")
 VERSION_NUMBER=$(grep "project.*" CMakeLists.txt | egrep -o "${VERSION_REGEX}")
 WORKSPACE="$GITHUB_WORKSPACE"
 INSTALL_PREFIX="$WORKSPACE/tmp"
-BUILD_TYPE="$MATRIX_BUILD_TYPE"
 
 echo "BUILD_TYPE=$BUILD_TYPE" >> $GITHUB_ENV
 echo "BUILD_TIME=$BUILD_TIME" >> $GITHUB_ENV
@@ -35,11 +34,11 @@ if [[ -z "${GITHUB_TAG}" ]]; then
     echo "Build is not tagged this is a continuous build"
     VERSION_SUFFIX="continuous"
     echo "VERSION_SUFFIX=$VERSION_SUFFIX" >> $GITHUB_ENV
-    echo "VERSION=${VERSION_NUMBER}-${VERSION_SUFFIX}" >> $GITHUB_ENV
+    echo "VERSION=${VERSION_NUMBER}-${$BUILD_TYPE}-${VERSION_SUFFIX}" >> $GITHUB_ENV
 else
     echo "Build is tagged this is not a continues build"
     echo "Building ksnip-plugin-ocr version ${VERSION_NUMBER}"
-    echo "VERSION=${VERSION_NUMBER}" >> $GITHUB_ENV
+    echo "VERSION=${VERSION_NUMBER}-${$BUILD_TYPE}" >> $GITHUB_ENV
 fi
 
 
