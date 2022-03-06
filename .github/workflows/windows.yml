@@ -7,7 +7,10 @@ on:
       - "v*"
 
 jobs:
-  build:
+  package-zip:
+    strategy:
+      matrix:
+        build-type: [ debug, release ]
     runs-on: windows-latest
     steps:
       - name: Checkout
