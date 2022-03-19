@@ -22,23 +22,28 @@ echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH;$INSTALL_PREFIX/lib/pkgconfig" >> $GITHUB
 
 
 if [[ "$GITHUB_REF" = refs/tags* ]]; then
-  GITHUB_TAG=${GITHUB_REF#refs/tags/}
- 	echo "GitHub Tag is: $GITHUB_TAG"
-  echo "GITHUB_TAG=$GITHUB_TAG" >> $GITHUB_ENV
+    GITHUB_TAG=${GITHUB_REF#refs/tags/}
+    echo "GitHub Tag is: $GITHUB_TAG"
+    echo "GITHUB_TAG=$GITHUB_TAG" >> $GITHUB_ENV
 else
-	echo "GitHub Ref is: $GITHUB_REF"
+    echo "GitHub Ref is: $GITHUB_REF"
 fi
 
+if [[ "${BUILD_TYPE}" = "debug" ]]; then
+    VERSION_BUILD_TYPE="-${BUILD_TYPE}"
+else
+    VERSION_BUILD_TYPE=""
+fi
 
 if [[ -z "${GITHUB_TAG}" ]]; then
     echo "Build is not tagged this is a continuous build"
     VERSION_SUFFIX="continuous"
     echo "VERSION_SUFFIX=$VERSION_SUFFIX" >> $GITHUB_ENV
-    echo "VERSION=${VERSION_NUMBER}-${BUILD_TYPE}-${VERSION_SUFFIX}" >> $GITHUB_ENV
+    echo "VERSION=${VERSION_NUMBER}${VERSION_BUILD_TYPE}-${VERSION_SUFFIX}" >> $GITHUB_ENV
 else
     echo "Build is tagged this is not a continues build"
     echo "Building ksnip-plugin-ocr version ${VERSION_NUMBER}"
-    echo "VERSION=${VERSION_NUMBER}-${BUILD_TYPE}" >> $GITHUB_ENV
+    echo "VERSION=${VERSION_NUMBER}${VERSION_BUILD_TYPE}" >> $GITHUB_ENV
 fi
 
 
