@@ -24,6 +24,7 @@
 #include <QPainter>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QDebug>
 
 #include "IPluginOcrOther.h"
 
