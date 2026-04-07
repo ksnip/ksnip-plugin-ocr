@@ -41,7 +41,7 @@ QString OcrWrapper::recognize(const QPixmap &pixmap, const QString &dataPath) co
 
 QString OcrWrapper::recognizeInner(const QPixmap &pixmap, char * dataPath) const
 {
-	if (mTessApi->Init(dataPath, "eng") == 0)
+	if (mTessApi->Init(dataPath, "por") == 0)
 	{
 		auto pix = makePixFromPixmap(pixmap);
 		mTessApi->SetImage(pix);
@@ -50,9 +50,9 @@ QString OcrWrapper::recognizeInner(const QPixmap &pixmap, char * dataPath) const
 
 		pixDestroy(&pix);
 
-		return QString::fromLatin1(recognizedText.data());
+        return QString::fromUtf8(recognizedText.data());
 
-	} else {
+        } else {
 		qCritical("Failed to initialize Tesseract");
 		return {};
 	}
