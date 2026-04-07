@@ -20,7 +20,7 @@ include(GNUInstallDirs)
 configure_file(src/BuildConfig.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/BuildConfig.h)
 
 set(QT_MIN_VERSION 5.9.4)
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Widgets)
+find_package(Qt6 REQUIRED Widgets)
 
 include(FeatureSummary)
 
@@ -33,7 +33,7 @@ if (BUILD_EXAMPLE)
 endif (BUILD_EXAMPLE)
 
 if (BUILD_TESTS)
-	find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Test)
+	find_package(Qt6 REQUIRED Test)
 	enable_testing()
 	add_subdirectory(tests)
 endif (BUILD_TESTS)

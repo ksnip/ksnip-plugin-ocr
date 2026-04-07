@@ -22,6 +22,7 @@
 
 #include <QPixmap>
 #include <QBuffer>
+#include <QSharedPointer>
 
 #include <tesseract/baseapi.h>
 #include <leptonica/allheaders.h>
